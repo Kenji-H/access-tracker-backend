@@ -47,9 +47,11 @@ function onError(error) {
     console.error(`error: ${error.stack}`);
 }
 
-function publishEvent(topicName, data) {
-    getTopic(topicName)
-        .then(publish(data))
-        .then(onSuccess)
-        .catch(onError);
-}
+module.exports = {
+    publishEvent: function (topicName, data) {
+        getTopic(topicName)
+            .then(publish(data))
+            .then(onSuccess)
+            .catch(onError);
+    }
+};

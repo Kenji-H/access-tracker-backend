@@ -1,6 +1,8 @@
 const os = require('os');
 const express = require('express');
 const bodyParser = require('body-parser');
+const pubsub = require('./pubsub');
+const validator = require('./validator');
 
 const port = process.env.PORT || 8080;
 var app = express();
@@ -17,18 +19,9 @@ app.get('/status', function (req, res) {
 
 app.post('/pv', function (req, res) {
     console.log(`received request for URL: ${req.path}`);
-
-    var userid = req.body.userid;
-    var timestamp = req.body.timestamp;
-    var url = req.body.url;
-    var userAgent = req.body.userAgent;
-
-    // TODO: publish to pub/sub
-    console.log(`userid: ${userid}`);
-    console.log(`timestamp: ${timestamp}`);
-    console.log(`url: ${url}`);
-    console.log(`userAgent: ${userAgent}`);
-
+    if (validator.validateEvent(req.body)) {
+        pubsub.publishEvent('event', req.body);
+    }
     res.status(200).end();
 });
 
