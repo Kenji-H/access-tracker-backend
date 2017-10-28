@@ -1,11 +1,11 @@
 const jsonschema = require('jsonschema');
 
 module.exports = {
-    validateEvent: function(event) {
+    validateEvent: function (event) {
         var validator = new jsonschema.Validator();
         var timestampInMilli = Date.now();
         var deltaInMilli = 60 * 1000;
-        
+
         var schema = {
             "type": "object",
             "properties": {
@@ -24,7 +24,7 @@ module.exports = {
 
         var result = validator.validate(event, schema);
         if (result.errors.length > 0) {
-            console.log(`validation error: ${result}`);
+            console.log(`validation error: ${result.errors[0]}`);
             return false;
         }
         return true;
