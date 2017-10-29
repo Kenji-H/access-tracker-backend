@@ -20,7 +20,7 @@ Not available yet.
 This application is supposed to be run on Google Container Engine. Prepare the cluster first and set secret keys as follows:
 
 ```
-kubectl --namespace=backend create secret generic gcp-key --from-file=key.json=/local/file/path.json
+$ kubectl --namespace=backend create secret generic gcp-key --from-file=key.json=/local/file/path.json
 ```
 
 ### build container
