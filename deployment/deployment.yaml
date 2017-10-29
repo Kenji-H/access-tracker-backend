@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: access-tracker-backend
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: gcp-key
+      containers:
+      - name: access-tracker-backend
+        image: gcr.io/access-tracker/access-tracker-backend:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+        env:
+        - name: GCP_PROJECT
+          value: access-tracker
+        - name: GCP_KEY
+          value: /var/secrets/google/key.json
