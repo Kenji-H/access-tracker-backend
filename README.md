@@ -24,7 +24,11 @@ $ kubectl --namespace=backend create secret generic gcp-key --from-file=key.json
 ```
 
 ### build container
-```$ bash scripts/build.sh```
+```
+$ bash scripts/build.sh
+```
 
 ### deploy to server
-```$ bash scripts/deploy.sh```
+```
+$ bash scripts/deploy.sh
+```
